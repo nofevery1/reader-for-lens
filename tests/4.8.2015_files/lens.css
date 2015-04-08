@@ -1381,6 +1381,7 @@ TOC
   width:20px;
   top: 0px;
   bottom: 0px;
+  display: none;
 }
 
 .surface-scrollbar .node.overlay {
