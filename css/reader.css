@@ -5,3 +5,8 @@
 .clicked {
   background-color: #94D8FF;
 }
+
+.expandParent {
+  display:none;
+  border: 2px solid;
+}
