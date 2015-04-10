@@ -3,12 +3,16 @@ $(document).ready( function () {
   highlighter.highlightInit();
 
   //Prevent any action when reference resources are clicked
-  $('a.resource-reference').click( function(e) {
-    e.preventDefault();
-  });
+  linkKill();
   expands.listener();
 });
 
+var linkKill = function() {
+  $('a.resource-reference').click( function(e) {
+    e.preventDefault();
+    e.preventPropagation();
+  });
+}
 
 var highlighter = {
   highlightInit: function() {
@@ -57,20 +61,8 @@ var highlighter = {
 
       $keeper.remove();
     });
-
-    //handle highlting toggling, doing this with classes was creating complexities
     $( ".highlightable").on("click", function() {
-      if ($(this).css("background-color") == "rgb(235, 245, 255)") {
-        $(this).css({"background-color": "#94D8FF"});
-      }
-      else {
-        $(this).css({"background-color": "#EBF5FF"});
-        $(this).mouseenter(function() {
-          $(this).css({"background-color": "#EBF5FF"});
-        }).mouseleave( function () {
-          $(this).css({"background-color": "#FFFFFF"});
-        });
-      }
+            $(this).toggleClass("clicked");
     });
   }
 }
@@ -101,6 +93,7 @@ var expands = {
           var toPush = resources[resCount].dataset.id.split("_divider_")[1];
           if (toPush.match("article_citation")) {
             citArray.push(toPush);
+            console.log(toPush);
           }
           if (toPush.match("figure")) {
             figArray.push(toPush);
@@ -153,13 +146,15 @@ var populator = {
     //to do: check for multiple instances
     citArray.forEach( function(elem) {
       console.log($("[data-id='"+elem+"']"));
-      $("[data-id='"+elem+"']").clone().show().appendTo("#"+citId);
+      $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+citId);
     });
   },
   figures: function(figId,figArray) {
     figArray.forEach( function(elem) {
       console.log($("[data-id='"+elem+"']"));
-      $("[data-id='"+elem+"']").clone().show().appendTo("#"+figId);
+      //adding array[0] specification to prevent cloned divs elsewhere in
+      //the document from giving double hits.
+      $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+figId);
     });
   }
 }
