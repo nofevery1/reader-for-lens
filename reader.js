@@ -82,7 +82,9 @@ var expands = {
       var spanId = $(this).attr('id');
       if ($("#"+spanId+"parent").length > 0) {
         console.log("jumbo");
-        $("#"+spanId+"parent").remove();
+        $("#"+spanId+"parent").slideToggle(1000, function () {
+          $(this).remove();
+        });
         return false;
       }
       console.log(spanId);
@@ -112,6 +114,7 @@ var expands = {
       id: spanId + "parent",
       class: "expandParent"
     });
+    newDiv.hide();
     newDiv.insertAfter("#"+spanId);
     var expandId = spanId + "parent";
     //exceptions to test what to create depending on presence of citations and figures
@@ -135,7 +138,7 @@ var expands = {
     }
     if(figArray.length > 0 || citArray.length > 0) {
     //This might break if populating things has to become asynchronous
-      newDiv.show('slow');
+      newDiv.slideToggle(1000);
     }
   }
 }
@@ -148,6 +151,7 @@ var populator = {
       console.log($("[data-id='"+elem+"']"));
       $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+citId);
     });
+    linkKill(); //restate <a> disabling for the text within expands
   },
   figures: function(figId,figArray) {
     figArray.forEach( function(elem) {
@@ -156,5 +160,6 @@ var populator = {
       //the document from giving double hits.
       $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+figId);
     });
+    linkKill();
   }
 }

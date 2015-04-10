@@ -33,7 +33,8 @@
   display:block;
 }
 
-.content-node.paragraph .content-node.text div {
+/*gareth*/
+.content-node.paragraph .content-node.text {
   display:inline;
   width: auto;
 }

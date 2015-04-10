@@ -3,9 +3,10 @@
 }
 
 .content > div.expandParent {
-  display:block !important;
   border: 2px solid;
 }
+
+
 
 .highlightable.clicked {
   background-color: #94D8FF;
