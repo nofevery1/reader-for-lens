@@ -2,11 +2,7 @@
   background-color: #EBF5FF;
 }
 
-.clicked {
-  background-color: #94D8FF;
-}
-
-.expandParent {
-  display:none;
+.content > div.expandParent {
+  display:block !important;
   border: 2px solid;
 }
