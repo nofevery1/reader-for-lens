@@ -1,14 +1,17 @@
 $(document).ready( function () {
-  twitterListener();
   highlighter.highlightInit();
   //Prevent any action when reference resources are clicked
   linkKill();
   expands.listener();
+  //twitterListener();
 });
+
 
 var twitterListener = function () {
   window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+  console.log("twitter ran");
 }
+
 
 var linkKill = function() {
   $('a.resource-reference').click( function(e) {
@@ -175,6 +178,7 @@ var populator = {
     linkKill();
   },
   twitter: function(spanId,tweetId) {
+    twitterListener();
     var button = $("<a>", {
       href: "https://twitter.com/share",
       class: "twitter-share-button",
@@ -183,5 +187,7 @@ var populator = {
       "data-url": window.location.href
     });
     button.insertAfter("#"+spanId);
+    console.log("thing");
+    //twitterListener();
   }
 }
