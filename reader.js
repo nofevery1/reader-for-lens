@@ -1,11 +1,14 @@
 $(document).ready( function () {
-
+  twitterListener();
   highlighter.highlightInit();
-
   //Prevent any action when reference resources are clicked
   linkKill();
   expands.listener();
 });
+
+var twitterListener = function () {
+  window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+}
 
 var linkKill = function() {
   $('a.resource-reference').click( function(e) {
@@ -87,8 +90,16 @@ var expands = {
         });
         return false;
       }
+      if ($("#"+spanId+"tweet").length > 0) {
+        $("#"+spanId+"tweet").fadeOut(400, function() {
+          $(this).remove();
+        });
+        return false;
+      }
       console.log(spanId);
       var resources = $('#'+spanId +' > a.resource-reference');
+      var tweetId = spanId+"tweet";
+      populator.twitter(spanId,tweetId);
       if (resources.length > 0) {
         //if resources exist, create arrays containing the article citation Ids of the target
         for (resCount=0 ; resCount < resources.length ; resCount++) {
@@ -144,6 +155,7 @@ var expands = {
 }
 
 //methods for populating the expands
+//*******need to add support for targets other than citations and figures (such as videos)
 var populator = {
   citations: function(citId,citArray) {
     //to do: check for multiple instances
@@ -161,5 +173,15 @@ var populator = {
       $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+figId);
     });
     linkKill();
+  },
+  twitter: function(spanId,tweetId) {
+    var button = $("<a>", {
+      href: "https://twitter.com/share",
+      class: "twitter-share-button",
+      id: tweetId,
+      "data-text": $("#"+spanId).text(),
+      "data-url": window.location.href
+    });
+    button.insertAfter("#"+spanId);
   }
 }
