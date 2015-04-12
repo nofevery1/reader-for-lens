@@ -11,3 +11,7 @@
 .highlightable.clicked {
   background-color: #94D8FF;
 }
+
+.hidden {
+  display:none;
+}

@@ -3,7 +3,7 @@ $(document).ready( function () {
   //Prevent any action when reference resources are clicked
   linkKill();
   expands.listener();
-  //twitterListener();
+  twitterListener();
 });
 
 
@@ -53,6 +53,12 @@ var highlighter = {
               $line.html($line.html() + elem + ". ");
             }
             $line.appendTo($keeper);
+            //try to add all twitter buttons hidden **This did not work **
+            //Try using qtip2 library to create new instances of twitter buttons
+            //var spanId = "inline_"+key+"_"+counter;
+            //var tweetId = spanId + "tweet";
+            //var $btn = populator.twitter(spanId,tweetId);
+            //$btn.appendTo($keeper);
             //counterObj["inline"+count]=0; //object to store click counts of each element
             //count++;
             counter++;
@@ -91,10 +97,11 @@ var expands = {
         $("#"+spanId+"parent").slideToggle(1000, function () {
           $(this).remove();
         });
-        return false;
+        //return false;
       }
       if ($("#"+spanId+"tweet").length > 0) {
-        $("#"+spanId+"tweet").fadeOut(400, function() {
+        $("#"+spanId+"tweet").hide(400, function() {
+          //console.log($(this) + "remove tweet");
           $(this).remove();
         });
         return false;
@@ -102,7 +109,7 @@ var expands = {
       console.log(spanId);
       var resources = $('#'+spanId +' > a.resource-reference');
       var tweetId = spanId+"tweet";
-      populator.twitter(spanId,tweetId);
+      //$("#"+tweetId).toggle('slow');
       if (resources.length > 0) {
         //if resources exist, create arrays containing the article citation Ids of the target
         for (resCount=0 ; resCount < resources.length ; resCount++) {
@@ -117,9 +124,8 @@ var expands = {
         }
         expands.createExpand(spanId);
       }
-      else {
-        console.log("no refs");
-      }
+      populator.twitter(spanId,tweetId);
+      $("#"+tweetId).toggle('slide');
     });
   },
   //function to create the expand div, but keep hidden until populated (display none in css)
@@ -178,16 +184,21 @@ var populator = {
     linkKill();
   },
   twitter: function(spanId,tweetId) {
-    twitterListener();
+    //twitterListener();
+    $("body").removeAttr("data-twttr-rendered");
     var button = $("<a>", {
       href: "https://twitter.com/share",
-      class: "twitter-share-button",
+      class: "twitter-share-button hidden",
       id: tweetId,
       "data-text": $("#"+spanId).text(),
-      "data-url": window.location.href
+      "data-url": window.location.href,
     });
-    button.insertAfter("#"+spanId);
     console.log("thing");
-    //twitterListener();
+    button.insertAfter("#"+spanId);
+    twttr.widgets.load();
+    //return button;
+    //reset the body class added by the twitter button to only run once per page
+    //$("body").removeAttr("data-twttr-rendered");
+
   }
 }
