@@ -15,3 +15,7 @@
 .hidden {
   display:none;
 }
+
+.inline-formula > div {
+  display:inline;
+}

@@ -25,7 +25,9 @@ var highlighter = {
     console.log('ready');
     var hiObj = { 'pop': 'val'};
     var counter = 0;
+    //console.log($('.content-node.paragraph > .content > .content-node.text > .content'));
     var hiArr = $('.content-node.paragraph > .content > .content-node.text > .content').map(function() {
+      //console.log($(this).text()+"_divider_"+$(this).parent().attr('data-id'));
       return $(this).text()+"_divider_"+$(this).parent().attr('data-id');
     }).get();
     //console.log(hiArr);
@@ -130,6 +132,7 @@ var expands = {
   },
   //function to create the expand div, but keep hidden until populated (display none in css)
   createExpand: function (spanId) {
+    console.log("expanding");
     var newDiv = $("<div>", {
       id: spanId + "parent",
       class: "expandParent"
