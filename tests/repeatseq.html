@@ -13,8 +13,18 @@
     <!-- A combined lens.css will be generated in the bundling process -->
     <!-- While in development, separate links for each CSS file are added, so we don't need a source map -->
     <link href="../lib/lens.css" rel="stylesheet" type="text/css">
-    <script src="../reader.js"></script>
 
+
+    <!-- styles needed by jScrollPane -->
+    <link type="text/css" href="../lib/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+
+    <!-- the mousewheel plugin - optional to provide mousewheel support -->
+    <script type="text/javascript" src="../lib/jquery.mousewheel.js"></script>
+
+    <!-- the jScrollPane script -->
+    <script type="text/javascript" src="../lib/jquery.jscrollpane.js"></script>
+
+    <script src="../reader.js"></script>
     <!-- MathJax Configuration -->
     <script type="text/x-mathjax-config;executed=true">
       MathJax.Hub.Config({

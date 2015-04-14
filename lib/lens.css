@@ -657,7 +657,7 @@ out (on iOS 5.1), or flicker (on iOS 6). */
   font-size: 17px;
   position: relative;
   float: left;
-  overflow: hidden;
+  overflow: auto;
   height: 100%;
   width: 100%;
   /* gareth
@@ -679,10 +679,11 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 
 .article .document .surface.content .nodes {
   min-height: 100%;
-  padding-left: 20px;
-  padding-right: 0px;
+  padding-left: 12%;
+  padding-right: 12%;
   background: #FFFFFF;
   padding-bottom: 50px;
+  /*text-align: justify;*/
 }
 
 
@@ -1208,6 +1209,7 @@ span.annotation.formula_reference, span.publication_reference {
   padding: 20px 0;
 }
 
+/*
 .article .document .surface.content::-webkit-scrollbar {
   width: 0px;
   height: 0px;
@@ -1216,9 +1218,9 @@ span.annotation.formula_reference, span.publication_reference {
 .article .document .surface.content::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0);
 }
+*/
 
-
-/* Disable native scrollbar for resources except TOC */
+/* Disable native scrollbar for resources except TOC
 
 .article .resources .panel::-webkit-scrollbar,
 .article .resources .surface.figures::-webkit-scrollbar,
@@ -1235,7 +1237,7 @@ span.annotation.formula_reference, span.publication_reference {
   background-color: rgba(0, 0, 0, 0);
 }
 
-
+*/
 /* Resources Scrollbar */
 /* ---------------------------------------*/
 
