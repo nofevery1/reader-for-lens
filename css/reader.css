@@ -25,3 +25,7 @@
 .inline-formula > div {
   display:inline;
 }
+
+div.nodes {
+  overflow:scroll;
+}

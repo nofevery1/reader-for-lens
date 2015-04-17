@@ -1,3 +1,8 @@
+
+//set global variables for height
+var docHeight;
+var winHeight;
+
 $(document).ready( function () {
   highlighter.highlightInit();
   //Prevent any action when reference resources are clicked
@@ -5,14 +10,183 @@ $(document).ready( function () {
   expands.listener();
   twitterListener();
   scrolls.init();
+  scrolls.listener();
+  //scrolls.viewTracker();
+  //watch for window resizing
+  $(window).resize( function() {
+    scrolls.init();
+  });
+
+  scrolls.viewTracker();
+
 });
 
 
+//bug: resizing window will reset the markers to init() display
+//bug: markers are created relatively in right position, but not in absolute correct position
 var scrolls = {
-  init: function () { //build the scrollbar markers on document load
+  init: function (target) { //build the scrollbar markers on document load
+    //if (target == null) {
+      if ($("#scrollDiv_0").length > 0) {
+        $("#scrollDiv_0").remove();
+      }
+    //}
+    var path = "#main > div > div.panel.content.document > div.surface.resource-view.content > div.nodes";
+    //console.log($(path));
+    docHeight = $(path).height();
+    winHeight = $(window).height();
+    console.log("doc " + docHeight + " win " + winHeight );
+    var $scroll = $("<div>", {
+      id: "scrollDiv_0",
+      class: "scrollDiv"
+    });
+    var scrollPos = $(window).width() - 20;
+    $scroll.css({
+      position: "fixed",
+      width: "20px",
+      height: winHeight,
+      left: scrollPos,
+      top: 0,
+      //"background-color": "#EBF5FF"
+    });
+    $scroll.appendTo(path);
+    var $citMark = $("<div>", {
+      class: "citMark"
+    });
+    if (target == null) {
+      console.log("no scroll target");
+      //top pos of element / doc height = x / window height
+      //console.log($("a.citation_reference"));
+      var refArr = ["citation","figure"];
+      refArr.forEach(function(elem) {
+        var arr = $("a."+elem+"_reference");
+        for (c = 0; c < arr.length ; c++) {
+          $citMark.attr("id",arr[c].dataset.id + "_divider_" +elem+ "Mark");
+          var offset = $("[data-id="+arr[c].dataset.id+"]").offset();
+          var scrollOffset = (offset.top * winHeight) / docHeight;
+          $citMark.css({
+            position:"fixed",
+            width: "20px",
+            height: "5px",
+            left: scrollPos,
+            top: scrollOffset,
+          });
+          if (elem == "citation") {
+            $citMark.css({  "background-color": "rgba(11, 157, 217, 0.4)"});
+          }
+          if (elem == "figure") {
+            $citMark.css({ "background-color": "rgba(145, 187, 4, 0.6)"});
+          }
+          $citMark.clone().appendTo("#scrollDiv_0");
+        }
+      });
 
+    }
+    else {
+      console.log("scroll target specified");
+      $(".citMark").remove();
+      if (target.match("citation")) {
+        var elem = "citation";
+      }
+      if (target.match("figure")) {
+        var elem = "figure";
+      }
+      var arr = $("a."+elem+"_reference");
+      for (c = 0; c < arr.length ; c++) {
+        var tempArr = arr[c].dataset.id.split("_divider_");
+        if (tempArr[1] == target) {
+          $citMark.attr("id",arr[c].dataset.id + "_divider_" +elem+ "Mark");
+
+          var offset = $("[data-id="+arr[c].dataset.id+"]").offset();
+          var scrollOffset = (offset.top * winHeight) / docHeight;
+          $citMark.css({
+            position:"fixed",
+            width: "20px",
+            height: "5px",
+            left: scrollPos,
+            top: scrollOffset,
+          });
+          if (elem == "citation") {
+            $citMark.css({  "background-color": "rgba(11, 157, 217, 0.4)"});
+          }
+          if (elem == "figure") {
+            $citMark.css({ "background-color": "rgba(145, 187, 4, 0.6)"});
+          }
+          $citMark.clone().appendTo("#scrollDiv_0");
+        }
+      }
+    }
+  },
+
+  listener: function() {
+    //var path = '#main > div > div.panel.content.document > div.surface.resource-view.content > div.nodes';
+    $('.resource-reference').on('click', function(e) {
+      console.log("money");
+      if (e.target !== this) return;
+      console.log("click found");
+      //console.log($(this));
+      var targetArr = $(this)[0].dataset.id.split("_divider_");
+      var targetCit = targetArr[1];
+      console.log(targetCit);
+      scrolls.init(targetCit);
+    });
+  },
+
+  viewTracker: function() { // viewport height/doc height = x/window hight
+    console.log("viewtracker starting");
+    var path = "#main > div > div.panel.content.document > div.surface.resource-view.content > div.nodes";
+    var scrollPos = $(window).width() - 20;
+    var $viewHeight = ($(window).height() / docHeight) * $(window).height();
+    //var $viewWidth = $(window).width();
+    var getViewport = function() {
+    var $w = $(window);
+    return {
+        l: $w.scrollLeft(),
+        t: $w.scrollTop(),
+        w: $w.width(),
+        h: $w.height()
+      }
+    }
+    var topScroll = getViewport();
+    var topAdjust = (topScroll.t / docHeight) * $(window).height();
+    var $view = $("<div>", {
+      id: "inView",
+    });
+    $view.css({
+      position: "fixed",
+      height: $viewHeight,
+      width: "20px",
+      left: scrollPos,
+      top: topAdjust + "px",
+      "z-index": 100000,
+      border: "2px solid"
+    });
+    $view.appendTo("#scrollDiv_0");
+    console.log("gey");
+    //console.log($(path));
+    $("*", document.body).scroll( function () {
+      console.log("scrolling");
+      topScroll = getViewport();
+      console.log(topScroll);
+      topAdjust = (topScroll.t / docHeight) * $(window).height();
+      $viewHeight = ($(window).height() / docHeight) * $(window).height();
+      console.log(topAdjust);
+      $("#inView").css({
+        position: "fixed",
+        height: $viewHeight,
+        width: "20px",
+        left: scrollPos,
+        top: topAdjust + "px",
+        "z-index": 100000,
+        border: "2px solid"
+      });
+      $view.appendTo("#scrollDiv_0");
+    });
   }
+
+
 }
+
 
 /*
 $(function(){
@@ -46,8 +220,9 @@ var twitterListener = function () {
 var linkKill = function() {
   $('a.resource-reference').click( function(e) {
     e.preventDefault();
-    e.preventPropagation();
+    //e.preventPropagation();
   });
+  //scrolls.init();
 }
 
 var highlighter = {
@@ -125,7 +300,7 @@ var expands = {
       figArray = [];
       var spanId = $(this).attr('id');
       if ($("#"+spanId+"parent").length > 0) {
-        console.log("jumbo");
+        //console.log("jumbo");
         $("#"+spanId+"parent").slideToggle(1000, function () {
           $(this).remove();
         });
@@ -138,7 +313,7 @@ var expands = {
         });
         return false;
       }
-      console.log(spanId);
+      //console.log(spanId);
       var resources = $('#'+spanId +' > a.resource-reference');
       var tweetId = spanId+"tweet";
       //$("#"+tweetId).toggle('slow');
@@ -148,7 +323,7 @@ var expands = {
           var toPush = resources[resCount].dataset.id.split("_divider_")[1];
           if (toPush.match("article_citation")) {
             citArray.push(toPush);
-            console.log(toPush);
+            //console.log(toPush);
           }
           if (toPush.match("figure")) {
             figArray.push(toPush);
@@ -162,7 +337,7 @@ var expands = {
   },
   //function to create the expand div, but keep hidden until populated (display none in css)
   createExpand: function (spanId) {
-    console.log("expanding");
+    //console.log("expanding");
     var newDiv = $("<div>", {
       id: spanId + "parent",
       class: "expandParent"
@@ -202,14 +377,14 @@ var populator = {
   citations: function(citId,citArray) {
     //to do: check for multiple instances
     citArray.forEach( function(elem) {
-      console.log($("[data-id='"+elem+"']"));
+      //console.log($("[data-id='"+elem+"']"));
       $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+citId);
     });
     linkKill(); //restate <a> disabling for the text within expands
   },
   figures: function(figId,figArray) {
     figArray.forEach( function(elem) {
-      console.log($("[data-id='"+elem+"']"));
+      //console.log($("[data-id='"+elem+"']"));
       //adding array[0] specification to prevent cloned divs elsewhere in
       //the document from giving double hits.
       $("[data-id='"+elem+"']:first").clone().show().appendTo("#"+figId);
@@ -226,7 +401,7 @@ var populator = {
       "data-text": $("#"+spanId).text(),
       "data-url": window.location.href,
     });
-    console.log("thing");
+    //console.log("thing");
     button.insertAfter("#"+spanId);
     twttr.widgets.load();
     //return button;
