@@ -1,3 +1,14 @@
+html, body {
+    margin:0;
+    padding:0;
+
+ }
+
+ body {
+   position: absolute; //for getting the scrolls to work
+ }
+
+
 .highlightable:hover {
   background-color: #EBF5FF;
 }

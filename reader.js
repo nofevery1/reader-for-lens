@@ -147,6 +147,7 @@ var scrolls = {
         h: $w.height()
       }
     }
+    console.log($("#scrollDiv_0").position());
     var topScroll = getViewport();
     var topAdjust = (topScroll.t / docHeight) * $(window).height();
     var $view = $("<div>", {
@@ -164,9 +165,11 @@ var scrolls = {
     $view.appendTo("#scrollDiv_0");
     console.log("gey");
     //console.log($(path));
-    $("*", document.body).scroll( function () {
+    $(window).scroll( function () {
+      console.log($("#scrollDiv_0").position());
       console.log("scrolling");
       topScroll = getViewport();
+      scrollPos = $(window).width() - 20;
       console.log(topScroll);
       topAdjust = (topScroll.t / docHeight) * $(window).height();
       $viewHeight = ($(window).height() / docHeight) * $(window).height();

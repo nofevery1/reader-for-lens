@@ -97,9 +97,9 @@
 }
 
 .content-node .listitem .bullet {
-  position: absolute;
+  /*position: absolute;
   left: 0px;
-  top: 14px;
+  top: 14px;*/
   width: 4px;
   height: 4px;
   background: #bbb;
@@ -137,11 +137,11 @@
 }
 
 .content-node.image div.selected .overlay {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
   background: rgba(0,169, 255, 0.25);
 }
 
@@ -174,7 +174,7 @@
   margin-bottom: 20px;
 
   /* Prevent from nasty scrollbars that appear when eLife logo is shown */
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .lens-article .content-node.cover .breadcrumbs a {
@@ -677,7 +677,7 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 */
   /*overflow: auto;
   -webkit-overflow-scrolling: touch;
-*/  
+*/
 }
 
 .article .document .surface.content .nodes {
@@ -715,18 +715,18 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 /* Switcher */
 .article .medial-strip {
   width: 40px;
-  position: absolute;
+  /*position: absolute;
   left: 50%;
   margin-left: -18px;
 
   top: 0px;
   bottom: 0px;
   background: #fff;
-  z-index: 3000;
+  z-index: 3000;*/
 }
 
 .article .back-nav {
-  display: block;
+  /*display: block;
   overflow: hidden;
   width: 40px;
   position: absolute;
@@ -735,7 +735,7 @@ out (on iOS 5.1), or flicker (on iOS 6). */
   font-size: 22px;
   background: #fff;
   color: #aaa;
-  padding: 10px 10px;
+  padding: 10px 10px;*/
 }
 
 .article .back-nav:hover {
@@ -743,20 +743,20 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 }
 
 .article .medial-strip .separator-line {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   bottom: 0px;
   left: 20px;
   width: 1px;
   background: #ddd;
-  z-index: 4000;
+  z-index: 4000;*/
 }
 
 .article .context-toggles {
-  position: absolute;
+  /*position: absolute;
   top: 30px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
   z-index: 5000;
 }
 
@@ -826,24 +826,24 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 */
 
 .article .resources .panel {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
   overflow-y: scroll;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
 .article .resources .surface {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: hidden;*/
   font-size: 14px;
   -webkit-overflow-scrolling: touch;
 }
@@ -922,20 +922,20 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 
 .article .resources .content-node .reference-count {
   font-size: 13px;
-  position: absolute;
+  /*position: absolute;
   right: 20px;
-  top: 40px;
+  top: 40px;*/
   text-align: right;
 }
 
 
 /* Resource toggle */
 .article .resources .content-node .resource-header .toggle-res {
-  position: absolute;
+  /*position: absolute;
   right: 0px;
   top: 0px;
   font-size: 20px;
-  bottom: 0px;
+  bottom: 0px;*/
   text-align: center;
   line-height: 40px;
   color: rgba(0,0,0, 0.2);
@@ -967,11 +967,11 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 /* Styles for fullscreen toggle on resource cards */
 
 .article .resources .content-node .resource-header .toggle-fullscreen {
-  position: absolute;
+  /*position: absolute;
   right: 30px;
   top: 0px;
   font-size: 20px;
-  bottom: 0px;
+  bottom: 0px;*/
   text-align: center;
   line-height: 40px;
   color: rgba(0,0,0, 0.2);
@@ -998,11 +998,11 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 }
 
 #container .article .content-node.fullscreen {
-  position: fixed;
+  /*position: fixed;
   top: 0px;
   bottom: 0px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
   z-index: 100000;
   margin-bottom: 0px;
   margin-right: 0px;
@@ -1018,11 +1018,11 @@ out (on iOS 5.1), or flicker (on iOS 6). */
 }
 
 #container .article .content-node.fullscreen > .content {
-  position: absolute;
+  /*position: absolute;
   top: 80px;
   bottom: 0px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
 
   overflow: auto;
 }
@@ -1250,11 +1250,11 @@ span.annotation.formula_reference, span.publication_reference {
 }
 
 .resources .surface-scrollbar {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   right: 0px;
   left: auto;
-  bottom: 0px;
+  bottom: 0px;*/
 }
 
 #container.touchable .resources .surface-scrollbar {
@@ -1382,15 +1382,15 @@ TOC
 
 .surface-scrollbar {
   background: #eee;
-  position: absolute;
+  /*position: absolute;
   left: 0px;
   width:20px;
   top: 0px;
-  bottom: 0px;
+  bottom: 0px;*/
   display: none;
 }
 
-.surface-scrollbar .node.overlay {
+/*.surface-scrollbar .node.overlay {
   position: absolute;
   min-height: 2px;
 }
@@ -1403,7 +1403,7 @@ TOC
   height: 80px;
   z-index: 4000;
   background-color: rgba(0,0,0, 0.2);
-}
+}*/
 
 .surface-scrollbar:hover .visible-area {
   background-color: rgba(0,0,0, 0.25);
@@ -1452,10 +1452,10 @@ TOC
 
 .panel.document  .nodes > .content-node > .focus-handle {
   display: none;
-  position: absolute;
+  /*position: absolute;
   top: 0px;
   bottom:2px;
-  left: 0px;
+  left: 0px;*/
   width: 30px;
   background: white;
   border-left: 3px solid #ccc;
@@ -1473,6 +1473,7 @@ TOC
   margin: 0;
 }
 
+
 body {
   padding: 0;
   margin: 0;
@@ -1484,23 +1485,6 @@ body {
 
 }
 
-body.loading {
-}
-
-html {
-  height:100%;
-  -webkit-font-smoothing: antialiased;
-}
-
-body.reader {
-  height: 100%;
-  overflow: hidden;
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-}
 
 .container::after {
   content:"";  /* not "."! */
@@ -1511,18 +1495,19 @@ body.reader {
 /*
 General Layout
 --------------------------------------- */
-
+/*
 #container {
   position: relative;
   margin: 0 auto;
   min-width: 800px;
-}
+}*/
 
-/* In reader view */
+/* In reader view
 body.reader #container {
-  /*max-width: 1400px;*/ /* 988px / 16px = 61.75em */
+  /*max-width: 1400px;*/ /* 988px / 16px = 61.75em
   height: 100%;
-}
+}*/
+
 
 body, textarea, p, input {
   font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, sans-serif;
@@ -1631,11 +1616,11 @@ body.reader #main {
 }
 
 #container .loading {
-  position: absolute;
+  /*position: absolute;
   top: 15px;
   left: 70px;
   right: 0px;
-  height: 49px;
+  height: 49px;*/
   line-height: 50px;
   font-size: 12px;
 }
@@ -1644,13 +1629,13 @@ body.reader #main {
 /* Loading bar */
 
 .spinner-wrapper {
-  position: fixed;
+  /*position: fixed;*/
   display: none;
-  left: 50%;
+  /*left: 50%;
   margin-left: -75px;
   width: 150px;
   top: 40%;
-  z-index: 5000;
+  z-index: 5000;*/
 }
 
 body.loading .spinner-wrapper {
