@@ -4,6 +4,11 @@ html, body {
 
  }
 
+body::-webkit-scrollbar {
+  display:none;
+}
+
+
  body {
    position: absolute; //for getting the scrolls to work
  }
