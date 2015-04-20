@@ -57,7 +57,7 @@ var scrolls = {
       console.log("no scroll target");
       //top pos of element / doc height = x / window height
       //console.log($("a.citation_reference"));
-      var refArr = ["citation","figure"];
+      /*var refArr = ["citation","figure"];
       refArr.forEach(function(elem) {
         var arr = $("a."+elem+"_reference");
         for (c = 0; c < arr.length ; c++) {
@@ -80,7 +80,7 @@ var scrolls = {
           $citMark.clone().appendTo("#scrollDiv_0");
         }
       });
-
+      */
     }
     else {
       console.log("scroll target specified");
@@ -163,7 +163,6 @@ var scrolls = {
       border: "2px solid"
     });
     $view.appendTo("#scrollDiv_0");
-    console.log("gey");
     //console.log($(path));
     $(window).scroll( function () {
       console.log($("#scrollDiv_0").position());

@@ -1503,7 +1503,7 @@ General Layout
 }*/
 
 /* In reader view
-body.reader #container {
+.reader #container {
   /*max-width: 1400px;*/ /* 988px / 16px = 61.75em
   height: 100%;
 }*/
