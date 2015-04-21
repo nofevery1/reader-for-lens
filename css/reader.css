@@ -9,9 +9,17 @@ body::-webkit-scrollbar {
 }
 
 
- body {
+body {
    position: absolute; //for getting the scrolls to work
  }
+
+
+.authorParent {
+  color: black;
+  border: 2px solid;
+  padding: 2px;
+}
+
 
 
 .highlightable:hover {

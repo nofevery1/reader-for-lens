@@ -18,10 +18,98 @@ $(document).ready( function () {
   });
 
   scrolls.viewTracker();
-
+  authors.listener();
 });
 
+var authors = {
+  listener: function () {
+    $('a.contributor_reference').click( function(e) {
+      e.preventDefault();
+      console.log($(this));
+      var dataId = $(this).context.dataset.id;
 
+      console.log(dataId);
+      if ($("#"+dataId).length > 0 ) {
+        $("#"+dataId).slideToggle(1000, function() {
+          console.log("kill");
+          $(this).remove();
+          return false;
+        });
+      }
+      else {
+        authors.keywords(dataId);
+      }
+    });
+  },
+  keywords: function (dataId) {
+
+    var authorId = dataId;
+    var authorName = $('[data-id="'+dataId+'"]').text().split(' ');
+    var newDiv = $("<div>", {
+      id: authorId,
+      class: "authorParent"
+    });
+    newDiv.hide();
+    newDiv.insertAfter('[data-id="'+dataId+'"]');
+    //Right now I am removing the emphasis * on the MeSH Terms that denotes what the critical points of each article was. Should use star for weighting somehow.
+    //Also include the OT term for author-defined keywords
+    //Also include option to show author's papers that fell under designated term
+    console.log(authorName);
+    $.ajax({
+      url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&term="+authorName[1]+"%20"+authorName[0]+"%5BAuthor%20-%20Full%5D",
+      datatype: "json",
+      success: function(data) {
+        var arr = data.esearchresult.idlist;
+        console.log(arr);
+        var ids = arr.join(",");
+        console.log(ids);
+        $.ajax({
+          url: "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id="+ids+"&rettype=medline",
+          method: "GET",
+          datatype: "text",
+          complete: function(dataT) {
+            //console.log(dataT);
+            var obj = {
+              "MeSH Term": "Frequency"
+            }
+            var out = dataT.responseText.split(/\n/);
+            //console.log(out);
+            out.forEach(function(elem) {
+              if (elem.match("MH ")) {
+                //console.log(elem);
+                var entry = elem.replace(/MH +- /,"");
+                var two = entry.replace(/\*/,"");
+                //console.log(two);
+                if (two in obj) {
+                  obj[two]=obj[two]+1;
+                }
+                else {
+                  obj[two] = 1;
+                }
+              }
+            });
+            var sortable = [];
+            for (var keyword in obj) {
+              if (!keyword.match("MeSH Term")) {
+                sortable.push([keyword, obj[keyword]]);
+              }
+            }
+            sortable.sort(function(a, b) {return b[1] - a[1]});
+            var strOut;
+            for(var c = 0 ; c < 11 ; c++) {
+              strOut = strOut+sortable[c].join(": ")+"\n";
+            }
+            var actual = strOut.replace("undefined","MeSH Terms: Frequency\n");
+            newDiv.text(actual);
+            newDiv.slideToggle(1000);
+            console.log(sortable);
+          }
+        });
+      }
+    });
+  }
+
+}
 //bug: resizing window will reset the markers to init() display
 //bug: markers are created relatively in right position, but not in absolute correct position
 var scrolls = {
@@ -165,14 +253,14 @@ var scrolls = {
     $view.appendTo("#scrollDiv_0");
     //console.log($(path));
     $(window).scroll( function () {
-      console.log($("#scrollDiv_0").position());
-      console.log("scrolling");
+      //console.log($("#scrollDiv_0").position());
+      //console.log("scrolling");
       topScroll = getViewport();
       scrollPos = $(window).width() - 20;
-      console.log(topScroll);
+      //console.log(topScroll);
       topAdjust = (topScroll.t / docHeight) * $(window).height();
       $viewHeight = ($(window).height() / docHeight) * $(window).height();
-      console.log(topAdjust);
+      //console.log(topAdjust);
       $("#inView").css({
         position: "fixed",
         height: $viewHeight,
