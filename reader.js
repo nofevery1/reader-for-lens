@@ -96,7 +96,7 @@ var authors = {
             }
             sortable.sort(function(a, b) {return b[1] - a[1]});
             var strOut;
-            for(var c = 0 ; c < 11 ; c++) {
+            for(var c = 0 ; c < 10 ; c++) {
               strOut = strOut+sortable[c].join(": ")+"\n";
             }
             var actual = strOut.replace("undefined","MeSH Terms: Frequency\n");
