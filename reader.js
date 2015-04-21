@@ -313,6 +313,13 @@ var linkKill = function() {
     //e.preventPropagation();
   });
   //scrolls.init();
+  $('a.action-toggle-resource').click( function(e) { //also actually initiates scroll maps
+    e.preventDefault();
+    var targeting = $(this).parent().parent().attr('data-id');
+    console.log($(this).parent().parent().attr('data-id'));
+    scrolls.init(targeting);
+    //e.preventPropagation();
+  });
 }
 
 var highlighter = {
@@ -370,7 +377,8 @@ var highlighter = {
 
       $keeper.remove();
     });
-    $( ".highlightable").on("click", function() {
+    $( ".highlightable").click( function(e) {
+      if (e.target !== this) return;
             $(this).toggleClass("clicked");
     });
   }
@@ -384,7 +392,8 @@ var figArray = [];
 var expands = {
   listener: function() {
     var that = this;
-    $("span.highlightable").click( function() {
+    $("span.highlightable").click( function(e) {
+      if (e.target !== this) return;
       //reset reference arrays
       citArray = [];
       figArray = [];
